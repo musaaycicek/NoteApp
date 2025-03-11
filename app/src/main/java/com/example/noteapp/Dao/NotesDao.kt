@@ -16,7 +16,10 @@ interface NotesDao {
     @Query("SELECT * FROM notes ORDER BY id DESC")
      fun getAllNotes(): List<Notes>
 
-    @Delete
-    suspend fun deleteNote(note: Notes)
+    @Query("DELETE FROM notes WHERE id = :noteId")
+     fun deleteNote(noteId:Int)
+
+     @Query("UPDATE notes Set isCompleted=:isComplete,completedNote=:completedNote WHERE id=:id")
+     fun noteComplete(id:Int,isComplete:Boolean,completedNote:String)
 
 }

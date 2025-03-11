@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var database: AppDatabase
     private lateinit var userDao: NotesDao
     private lateinit var adapter: noteAdapter
-
+    private val selectedNotes = mutableListOf<Notes>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,11 +81,10 @@ class MainActivity : AppCompatActivity() {
                 val notes = Notes(note = enterText.text.toString())
                 lifecycleScope.launch {
                     userDao.insertNote(notes)
+                    adapter.run { notifyDataSetChanged() }
                     Toast.makeText(this@MainActivity, "Kaydedildi2", Toast.LENGTH_SHORT).show()
                 }
-
-
-
+                dialog.dismiss()
 
 
 
@@ -93,5 +92,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         dialog.show()
+
     }
 }

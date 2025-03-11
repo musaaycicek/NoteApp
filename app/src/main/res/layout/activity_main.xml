@@ -79,17 +79,4 @@
         app:layout_constraintTop_toBottomOf="@+id/recyclerView"
         app:srcCompat="@drawable/baseline_add_24" />
 
-    <ImageButton
-        android:id="@+id/removeNote"
-        android:layout_width="88dp"
-        android:layout_height="79dp"
-        android:layout_marginBottom="48dp"
-        android:background="#807C7C"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/trash_bin_delete_icon_254526" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
