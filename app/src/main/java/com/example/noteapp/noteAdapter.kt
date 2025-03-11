@@ -2,6 +2,7 @@ package com.example.noteapp
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import androidx.recyclerview.widget.RecyclerView
 import com.example.noteapp.Entity.Notes
 import com.example.noteapp.databinding.RecyclerviewRowsBinding
@@ -24,12 +25,17 @@ class noteAdapter(val list: List<Notes>): RecyclerView.Adapter<noteAdapter.NoteV
         var  position=list[position]
 
         holder.binding.noteText.text=position.note
-        holder.binding.pointBox.isChecked = position.isCompleted
-        holder.binding.pointBox.setOnCheckedChangeListener(null)
 
-        holder.binding.pointBox.setOnClickListener {
-            holder.binding.pointBox.isChecked = !holder.binding.pointBox.isChecked
-        }
+        holder.binding.checkBox.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked:Boolean ->
+            if (isChecked) {
+                holder.binding.checkBox2.isChecked = true
+            } else {
+                holder.binding.checkBox2.isChecked = false
+            }
+
+
+
+       })
 
 //            if (holder.binding.pointBox.isChecked==false){
 //                holder.binding.pointBox.setOnClickListener {
