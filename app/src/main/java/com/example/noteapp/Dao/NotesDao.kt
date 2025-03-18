@@ -22,4 +22,7 @@ interface NotesDao {
      @Query("UPDATE notes Set isCompleted=:isComplete,completedNote=:completedNote WHERE id=:id")
      fun noteComplete(id:Int,isComplete:Boolean,completedNote:String)
 
+     @Query("SELECT * FROM notes WHERE isCompleted=1")
+     fun getCompletedNotes(): List<Notes>
+
 }

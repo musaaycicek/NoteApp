@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.view.WindowManager
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -47,6 +48,10 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager=LinearLayoutManager(this)
 
         binding.recyclerView.setHasFixedSize(true)
+
+        val arrayAdapter= ArrayAdapter(this,android.R.layout.simple_list_item_1,userDao.getCompletedNotes().map { it.note })
+        binding.spinner.adapter=arrayAdapter
+
 
 
     }
