@@ -11,6 +11,9 @@ import com.example.noteapp.Entity.Notes
 abstract class AppDatabase: RoomDatabase() {
     abstract fun notesDao(): NotesDao
 
+
+
+    // Singleton Pattern
     companion object{
         @Volatile
         private var INSTANCE:AppDatabase?=null

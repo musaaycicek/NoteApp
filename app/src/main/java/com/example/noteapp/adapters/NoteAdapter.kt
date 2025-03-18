@@ -1,16 +1,18 @@
-package com.example.noteapp
+package com.example.noteapp.adapters
 
 import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.CompoundButton
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.noteapp.Dao.NotesDao
 import com.example.noteapp.Database.AppDatabase
 import com.example.noteapp.Entity.Notes
+import com.example.noteapp.R
 import com.example.noteapp.databinding.RecyclerviewRowsBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -39,7 +41,7 @@ class noteAdapter(val list: List<Notes>) : RecyclerView.Adapter<noteAdapter.Note
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-
+        val anim= AnimationUtils.loadAnimation(holder.itemView.context, R.anim.completed_note_anim)
         val alert = AlertDialog.Builder(holder.itemView.context)
         alert.setTitle("Silme İşlemi")
         alert.setMessage("Silmek istediğinize emin misiniz?")
@@ -82,10 +84,34 @@ class noteAdapter(val list: List<Notes>) : RecyclerView.Adapter<noteAdapter.Note
 
         })
 
-        holder.binding.checkBox2.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked: Boolean ->
+        holder.binding.checkBox2.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked: Boolean ->
             if (isChecked) {
+
                 holder.binding.checkBox2.isChecked = true
                 userDao.noteComplete(position.id, true, position.note)
+
+                anim.setAnimationListener(object : Animation.AnimationListener {
+                    override fun onAnimationStart(animation: Animation?) {
+                        holder.binding.noteText.visibility=View.VISIBLE
+                    }
+
+                    override fun onAnimationEnd(animation: Animation?) {
+
+                        holder.binding.checkBox2.visibility=View.GONE
+
+                        holder.binding.noteText.visibility=View.GONE
+                    }
+
+                    override fun onAnimationRepeat(animation: Animation?) {
+                        TODO("Not yet implemented")
+                    }
+
+
+
+                })
+                holder.binding.noteText.startAnimation(anim)
+
+
 
             } else {
                 holder.binding.checkBox2.isChecked = false

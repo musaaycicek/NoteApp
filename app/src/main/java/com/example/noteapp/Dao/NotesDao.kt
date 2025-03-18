@@ -22,4 +22,13 @@ interface NotesDao {
      @Query("UPDATE notes Set isCompleted=:isComplete,completedNote=:completedNote WHERE id=:id")
      fun noteComplete(id:Int,isComplete:Boolean,completedNote:String)
 
+     @Query("SELECT * FROM notes WHERE isCompleted=1")
+     fun getCompletedNotes(): List<Notes>
+
+     // Searchview için işlem yaptık
+     @Query("SELECT*FROM notes WHERE note LIKE '%' ||:query||'%'")
+
+     suspend fun searchNotes(query:String):List<Notes>
+
+
 }
