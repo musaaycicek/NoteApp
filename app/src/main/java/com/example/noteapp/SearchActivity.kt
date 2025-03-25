@@ -1,5 +1,6 @@
 package com.example.noteapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.SearchView
 import androidx.activity.enableEdgeToEdge
@@ -8,7 +9,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.noteapp.Dao.NotesDao
 import com.example.noteapp.Database.AppDatabase
-import com.example.noteapp.adapters.noteAdapter
 import com.example.noteapp.adapters.searchAdapter
 import com.example.noteapp.databinding.ActivitySearchBinding
 import kotlinx.coroutines.Dispatchers
@@ -36,6 +36,11 @@ class SearchActivity : AppCompatActivity() {
 //        binding.searchcycle.adapter = adapter
 //        binding.searchcycle.layoutManager = LinearLayoutManager(this)
 
+        binding.imageButton.setOnClickListener {
+            val intent= Intent(this,MainActivity::class.java)
+            startActivity(intent)
+        }
+
 
         adapter= searchAdapter(this@SearchActivity)
         binding.searchcycle.adapter=adapter
@@ -46,16 +51,24 @@ class SearchActivity : AppCompatActivity() {
         binding.searchView.setOnQueryTextListener(object:SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let{
-                    searchNotes(it)
+//                query?.let{
+//                    searchNotes(it)
+//                }
+
+                if(query!=null){
+                    searchNotes(query)
                 }
                     return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
               //  userDao.searchNotes("%$newText%")
-                newText?.let{
-                    searchNotes(it)
+//                newText?.let{
+//                    searchNotes(it)
+//                }
+
+                if(newText!=null){
+                    searchNotes(newText)
                 }
                 return true
             }
@@ -68,9 +81,9 @@ class SearchActivity : AppCompatActivity() {
 
     fun searchNotes(query:String){
         lifecycleScope.launch {
-            userDao.searchNotes(query)
+
             withContext(Dispatchers.Main){
-                adapter.notifyDataSetChanged()
+                adapter.setNotes(userDao.searchNotes(query))
             }
 
         }

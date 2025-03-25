@@ -17,12 +17,14 @@ import com.example.noteapp.databinding.RecyclerviewRowsBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 
 class noteAdapter(val list: List<Notes>) : RecyclerView.Adapter<noteAdapter.NoteViewHolder>() {
 
     private lateinit var database: AppDatabase
     private lateinit var userDao: NotesDao
+
 
 
     class NoteViewHolder(val binding: RecyclerviewRowsBinding) :
@@ -121,6 +123,12 @@ class noteAdapter(val list: List<Notes>) : RecyclerView.Adapter<noteAdapter.Note
 
         })
 
+
+    }
+
+    fun setNotes1(notes: List<Notes>){
+        list.toMutableList().addAll(notes)
+        notifyDataSetChanged()
 
     }
 }

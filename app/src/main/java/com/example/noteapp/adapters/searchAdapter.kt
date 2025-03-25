@@ -36,4 +36,9 @@ class searchAdapter(context: Context): RecyclerView.Adapter<searchAdapter.ViewHo
 
 
     }
+
+    fun setNotes(notes: List<Notes>){
+        notesList=notes
+        notifyDataSetChanged()
+    }
 }
