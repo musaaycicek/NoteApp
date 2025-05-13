@@ -25,7 +25,10 @@ interface NotesDao {
      @Query("SELECT * FROM notes WHERE isCompleted=1")
      fun getCompletedNotes(): List<Notes>
 
-     @Query("SELECT * FROM notes WHERE note LIKE '%' || :query || '%'")
-     fun searchNotes(query: String): List<Notes>
+     // Searchview için işlem yaptık
+     @Query("SELECT*FROM notes WHERE note LIKE '%' ||:query||'%'")
+
+     suspend fun searchNotes(query:String):List<Notes>
+
 
 }
