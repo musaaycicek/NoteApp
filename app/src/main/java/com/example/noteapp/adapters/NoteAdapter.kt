@@ -105,7 +105,7 @@ class noteAdapter(val list: List<Notes>) : RecyclerView.Adapter<noteAdapter.Note
                     }
 
                     override fun onAnimationRepeat(animation: Animation?) {
-                        TODO("Not yet implemented")
+                        
                     }
 
 
